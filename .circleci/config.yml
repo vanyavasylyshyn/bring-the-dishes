@@ -10,11 +10,19 @@ jobs:
     steps:
       - checkout
       - run:
-          name: install dependencies
+          name: Install dependencies
           command: |
             gem update --system
             gem install bundler
-      - run:
-          name: Which bundler?
-          command: bundle -v
       - ruby/bundle-install
+      - run:
+          name: Running checks
+          command: |
+            bundle exec bundle-audit check --update
+            bundle exec brakeman
+            bundle exec rails_best_practices .
+            bundle exec fasterer
+            bundle exec reek
+            bundle exec rubocop
+
+
