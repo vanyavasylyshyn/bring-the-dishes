@@ -1,0 +1,58 @@
+PreCommit:
+  ALL:
+    exclude: 
+      - 'node_modules/**/*'
+      - 'vendor/**/*'
+
+  BundleAudit:
+    enabled: true
+    description: 'Check for vulnerable versions of gems'
+    required_executable: 'bundle-audit'
+    command: ['bundle', 'exec', 'bundle-audit', 'check']
+    flags:   ['--update']
+
+  Brakeman:
+    enabled: true
+    description: 'Check for security vulnerabilities'
+    required_executable: 'brakeman'
+    command: ['bundle', 'exec', 'brakeman']
+    flags: ['--exit-on-warn']
+
+  RailsBestPractices:
+    enabled: true
+    description: 'Analyze with RailsBestPractices'
+    required_executable: 'rails_best_practices'
+    command: ['bundle', 'exec', 'rails_best_practices', '.']
+    flags: ['--without-color']
+  
+  Fasterer:
+    enabled: true
+    description: 'Analyzing for potential speed improvements'
+    required_executable: 'fasterer'
+    command: ['bundle', 'exec', 'fasterer']
+    include: '**/*.rb'
+
+  Reek:
+    enabled: true
+    description: 'Analyze with Reek'
+    required_executable: 'reek'
+    command: ['bundle', 'exec', 'reek']
+    include:
+      - '**/*.gemspec'
+      - '**/*.rake'
+      - '**/*.rb'
+      - '**/Gemfile'
+      - '**/Rakefile'
+
+  RuboCop:
+    enabled: true
+    description: 'Analyze with RuboCop'
+    required_executable: 'rubocop'
+    command: ['bundle', 'exec', 'rubocop']
+    include:
+      - '**/*.gemspec'
+      - '**/*.rake'
+      - '**/*.rb'
+      - '**/*.ru'
+      - '**/Gemfile'
+      - '**/Rakefile'
