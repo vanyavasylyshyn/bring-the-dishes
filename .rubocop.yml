@@ -1,0 +1,13 @@
+AllCops:
+  Exclude:
+    - vendor/**/*
+    - config/**/*
+    - tmp/**/*
+    - bin/*
+  TargetRubyVersion: 2.5
+  
+Style/Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
