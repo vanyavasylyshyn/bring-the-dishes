@@ -16,13 +16,23 @@ jobs:
             gem install bundler
       - ruby/bundle-install
       - run:
-          name: Running checks
-          command: |
-            bundle exec bundle-audit check --update
-            bundle exec brakeman
-            bundle exec rails_best_practices .
-            bundle exec fasterer
-            bundle exec reek
-            bundle exec rubocop
-
-
+          name: bundle-audit check
+          command: bundle exec bundle-audit check --update
+      - run: 
+          name: brakeman check
+          command: bundle exec brakeman
+      - run: 
+          name: rails_best_practices check
+          command: bundle exec rails_best_practices .
+      - run: 
+          name: rails_best_practices check
+          command: bundle exec rails_best_practices .
+      - run: 
+          name: fasterer check
+          command: bundle exec fasterer
+      - run: 
+          name: reek check
+          command: bundle exec reek
+      - run: 
+          name: rubocop check
+          command: bundle exec rubocop
