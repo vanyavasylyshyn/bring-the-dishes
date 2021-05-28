@@ -30,6 +30,7 @@ group :development, :test do
   gem 'brakeman'
   gem 'bundler-audit', '~> 0.8.0'
   gem 'fasterer'
+  gem 'overcommit'
   gem 'rails_best_practices'
   gem 'reek'
   gem 'rubocop', require: false
