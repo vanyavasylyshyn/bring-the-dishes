@@ -17,4 +17,4 @@ jobs:
             bundle install --path vendor/bundle
       - run:
           name: Running checks
-          command: bundle exec overcommit --sign --run
+          command: bundle exec overcommit --sign && bundle exec overcommit --sign --run
