@@ -1,24 +1,17 @@
-# README
+# Bring The Dishes
+ 
+Small study project
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+To run this project:
 
-Things you may want to cover:
+* Use 2.5.5 ruby version
 
-* Ruby version
+* touch config/master.key
 
-* System dependencies
+* insert a key into config/master.key file
 
-* Configuration
+* bundle install
 
-* Database creation
+* bundle exec rails s
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* visit http://localhost:3000
