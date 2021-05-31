@@ -17,4 +17,6 @@ jobs:
             bundle install --path vendor/bundle
       - run:
           name: Running checks
-          command: bundle exec overcommit --run
+          command: |
+            bundle exec overcommit -s
+            SKIP=AuthorEmail,AuthorName bundle exec overcommit -r
