@@ -18,5 +18,7 @@ jobs:
       - run:
           name: Running checks
           command: |
+            git config --global user.email "circle@example.com"
+            git config --global user.name "Circle CI"
             bundle exec overcommit -s
-            SKIP=AuthorEmail,AuthorName bundle exec overcommit -r
+            bundle exec overcommit -r
