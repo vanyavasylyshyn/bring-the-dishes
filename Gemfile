@@ -9,13 +9,30 @@ gem 'pg', '~> 1.1'
 
 gem 'puma', '~> 5.0'
 
-
 group :development, :test do
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'byebug', platforms: %i[mri mingw x64_mingw]
 end
 
 group :development do
   gem 'listen', '~> 3.3'
 end
 
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+group :test do
+  # Adds support for Capybara system testing and selenium driver
+  gem 'capybara', '>= 3.26'
+  gem 'selenium-webdriver'
+  # Easy installation and use of web drivers to run system tests with browsers
+  gem 'webdrivers'
+end
+
+group :development, :test do
+  gem 'brakeman'
+  gem 'bundler-audit', '~> 0.8.0'
+  gem 'fasterer'
+  gem 'overcommit'
+  gem 'rails_best_practices'
+  gem 'reek'
+  gem 'rubocop', require: false
+end
+
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
