@@ -8,7 +8,7 @@ require "action_view/railtie"
 
 Bundler.require(*Rails.groups)
 
-module Someproject
+module BringTheDishes
   class Application < Rails::Application
     config.load_defaults 6.1
 
