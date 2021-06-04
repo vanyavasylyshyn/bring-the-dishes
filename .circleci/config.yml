@@ -3,7 +3,7 @@ orbs:
   ruby: circleci/ruby@0.1.2 
 
 jobs:
-  build:
+  linters:
     docker:
       - image: circleci/ruby:2.5.5-stretch-node
     executor: ruby/default
@@ -16,7 +16,7 @@ jobs:
             sudo apt-get install cmake
             gem update --system
             gem install bundler
-            bundle install --path vendor/bundle
+            bundle install --path vendor/bundle --with development test
       - run:
           name: Running checks
           command: |
@@ -24,6 +24,20 @@ jobs:
             git config --global user.name "Circle CI"
             bundle exec overcommit -s
             bundle exec overcommit -r
+  tests:
+    docker:
+      - image: circleci/ruby:2.5.5-stretch-node
+    executor: ruby/default
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: |
+            sudo apt-get update
+            sudo apt-get install cmake
+            gem update --system
+            gem install bundler
+            bundle install --path vendor/bundle --with development test
       - run:
           name: Running tests
           command: |
