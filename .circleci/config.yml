@@ -22,3 +22,11 @@ jobs:
             git config --global user.name "Circle CI"
             bundle exec overcommit -s
             bundle exec overcommit -r
+      - run:
+          name: Running tests
+          command: |
+            bundle exec rspec
+      - run:
+          name: Check coverage
+          command: |
+            undercover --compare origin/master
