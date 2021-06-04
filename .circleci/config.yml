@@ -31,4 +31,4 @@ jobs:
       - run:
           name: Check coverage
           command: |
-            undercover --compare origin/master
+            bundle exec undercover --compare origin/master
