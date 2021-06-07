@@ -30,7 +30,7 @@ group :development, :test do
   gem 'reek'
   gem 'rspec-rails', '~> 5.0.0'
   gem 'rubocop', require: false
-  gem 'simplecov', require: false
+  gem 'simplecov'
   gem 'simplecov-lcov'
   gem 'undercover'
 end
