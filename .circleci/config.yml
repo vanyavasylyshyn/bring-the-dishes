@@ -8,6 +8,7 @@ workflows:
     jobs:
       - test
       - build
+
 defaults:
   ruby_image: &ruby_image
     circleci/ruby:2.5.5-stretch-node
@@ -32,7 +33,7 @@ defaults:
     command: |
       gem update --system
       gem i bundler -v $(tail -1 Gemfile.lock | tr -d ' ')
-      bundle install --path vendor/bundle
+      bundle install --path vendor/bundle --jobs 4 --retry 3
 
   save_cache: &save_cache
     key: gem-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
