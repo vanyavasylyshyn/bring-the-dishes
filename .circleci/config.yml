@@ -21,6 +21,10 @@ defaults:
       - gem-cache-v1-{{ arch }}-{{ .Branch }}
       - gem-cache-v1
 
+  install_cmake: &install_cmake
+    name: Install cmake
+    command: sudo apt-get install cmake
+
   install_dependencies: &install_dependencies
     name: Install dependencies
     command: |
@@ -44,6 +48,8 @@ jobs:
       - restore_cache:
           <<: *restore_cache
       - run: 
+          <<: *install_cmake
+      - run: 
           <<: *install_dependencies
       - save_cache:
           <<: *save_cache
@@ -66,6 +72,8 @@ jobs:
       - checkout
       - restore_cache:
           <<: *restore_cache
+      - run: 
+          <<: *install_cmake
       - run:
           <<: *install_dependencies
       - save_cache:
@@ -73,9 +81,6 @@ jobs:
       - run: 
           name: Install postgres client
           command: sudo apt install -y postgresql-client
-      - run: 
-          name: Install cmake
-          command: sudo apt-get install cmake
       - run:
           name: Database setup
           command: |
