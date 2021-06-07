@@ -10,7 +10,7 @@ workflows:
       - test
 defaults:
   ruby_image: &ruby_image
-    - image: circleci/ruby:2.5.5-stretch-node
+    circleci/ruby:2.5.5-stretch-node
 
   executor: &executor
     executor: ruby/default
@@ -37,7 +37,7 @@ defaults:
 jobs:
   build:
     docker:
-      <<: *ruby_image
+      - image: *ruby_image
     <<: *executor
     steps:
       - checkout
@@ -56,7 +56,7 @@ jobs:
             bundle exec overcommit -r
   test:
     docker:
-      <<: *ruby_image
+      - image: *ruby_image
       - image: circleci/postgres:9.6.2-alpine
         environment:
           POSTGRES_USER: root
