@@ -86,8 +86,10 @@ jobs:
       - run:
           name: Database setup
           command: |
-            RAILS_ENV=test bundle exec rake db:create
-            RAILS_ENV=test bundle exec rake db:structure:load
+            bundle exec rake db:create
+            bundle exec rake db:structure:load
+          environment:
+            RAILS_ENV: test
       - run:
           name: Running tests
           command: |
