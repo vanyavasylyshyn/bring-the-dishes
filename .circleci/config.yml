@@ -23,14 +23,15 @@ defaults:
 
   install_cmake: &install_cmake
     name: Install cmake
-    command: sudo apt-get install cmake
+    command: |
+      sudo apt-get update
+      sudo apt-get install cmake
 
   install_dependencies: &install_dependencies
     name: Install dependencies
     command: |
-      sudo apt-get update
       gem update --system
-      gem install bundler -v 2.2.15
+      gem i bundler -v $(tail -1 Gemfile.lock | tr -d ' ')
       bundle install --path vendor/bundle
 
   save_cache: &save_cache
