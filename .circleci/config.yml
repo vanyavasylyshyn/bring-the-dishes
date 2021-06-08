@@ -83,7 +83,7 @@ jobs:
             bundle exec rspec
       - run:
           name: Store coverage report
-          command: mv coverage/ /tmp/coverage/
+          command: mv coverage/* /tmp/coverage/
       - persist_to_workspace:
           root: /tmp/coverage
           paths: .
