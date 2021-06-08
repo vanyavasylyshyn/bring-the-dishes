@@ -6,8 +6,8 @@ workflows:
   version: 2
   build_and_test:
     jobs:
-      - test
-      - build
+      - linters
+      - tests
 
 defaults:
   ruby_image: &ruby_image
@@ -31,9 +31,9 @@ defaults:
   install_dependencies: &install_dependencies
     name: Install dependencies
     command: |
-      gem update --system
       gem i bundler -v $(tail -1 Gemfile.lock | tr -d ' ')
-      bundle install --path vendor/bundle --jobs 4 --retry 3
+      bundle config set path 'vendor/bundle' jobs 4 retry 3
+      bundle install
 
   save_cache: &save_cache
     key: gem-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
@@ -41,7 +41,7 @@ defaults:
       - vendor/bundle
 
 jobs:
-  build:
+  linters:
     docker:
       - image: *ruby_image
     <<: *executor
@@ -62,13 +62,9 @@ jobs:
             git config --global user.name "Circle CI"
             bundle exec overcommit -s
             bundle exec overcommit -r
-  test:
+  tests:
     docker:
       - image: *ruby_image
-      - image: circleci/postgres:9.6.2-alpine
-        environment:
-          POSTGRES_USER: root
-          POSTGRES_DB: brind_the_dishes_test
     <<: *executor
     steps:
       - checkout
@@ -80,9 +76,6 @@ jobs:
           <<: *install_dependencies
       - save_cache:
           <<: *save_cache
-      - run: 
-          name: Install postgres client
-          command: sudo apt install -y postgresql-client
       - run:
           name: Database setup
           command: |
@@ -97,7 +90,7 @@ jobs:
             bundle exec rspec
       - run:
           name: Store coverage report
-          command: mv coverage/lcov/project.lcov /tmp/coverage/
+          command: mv coverage/ /tmp/coverage/
       - persist_to_workspace:
           root: /tmp/coverage
           paths: .
