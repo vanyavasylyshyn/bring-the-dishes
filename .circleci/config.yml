@@ -25,6 +25,7 @@ defaults:
   install_cmake: &install_cmake
     name: Install cmake
     command: |
+      sudo apt-get update
       sudo apt-get install cmake
 
   install_dependencies: &install_dependencies
