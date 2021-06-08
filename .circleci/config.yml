@@ -25,7 +25,6 @@ defaults:
   install_cmake: &install_cmake
     name: Install cmake
     command: |
-      sudo apt-get update
       sudo apt-get install cmake
 
   install_dependencies: &install_dependencies
@@ -58,8 +57,6 @@ jobs:
       - run:
           name: Running checks
           command: |
-            git config --global user.email "circle@example.com"
-            git config --global user.name "Circle CI"
             bundle exec overcommit -s
             bundle exec overcommit -r
   tests:
