@@ -8,6 +8,7 @@ SimpleCov.formatters = [
 SimpleCov.start 'rails' do
   add_filter(%r{^/spec/})
   enable_coverage(:branch)
+  minimum_coverage line: 90, branch: 80
 end
 
 require 'undercover'
