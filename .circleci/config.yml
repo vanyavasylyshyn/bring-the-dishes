@@ -93,6 +93,5 @@ jobs:
       - run:
           name: Check coverage
           command: |
-            gem install undercover
-            undercover --lcov /tmp/coverage/lcov/project.lcov \
-                       --compare origin/master
+            bundle exec undercover  --lcov /tmp/coverage/lcov/project.lcov \
+                                    --compare origin/master
