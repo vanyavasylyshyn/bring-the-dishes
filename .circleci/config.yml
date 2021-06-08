@@ -59,7 +59,7 @@ jobs:
           name: Running checks
           command: |
             bundle exec overcommit -s
-            bundle exec overcommit -r
+            SKIP=AuthorEmail,AuthorName bundle exec overcommit -r
   tests:
     docker:
       - image: *ruby_image
