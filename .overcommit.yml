@@ -67,6 +67,11 @@ PreCommit:
       - '**/Rakefile'
 
 PrePush:
+  ALL:
+    requires_files: false
+    required: false
+    quiet: false
+
   RSpec:
     enabled: true
     description: 'Run RSpec test suite'
