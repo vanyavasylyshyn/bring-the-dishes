@@ -77,13 +77,6 @@ jobs:
       - save_cache:
           <<: *save_cache
       - run:
-          name: Database setup
-          command: |
-            bundle exec rake db:create
-            bundle exec rake db:structure:load
-          environment:
-            RAILS_ENV: test
-      - run:
           name: Running tests
           command: |
             mkdir -p /tmp/coverage
