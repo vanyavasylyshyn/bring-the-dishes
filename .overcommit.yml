@@ -65,3 +65,9 @@ PreCommit:
       - '**/*.ru'
       - '**/Gemfile'
       - '**/Rakefile'
+
+PrePush:
+  RSpec:
+    enabled: true
+    description: 'Run RSpec test suite'
+    required_executable: 'bundle exec rspec'
