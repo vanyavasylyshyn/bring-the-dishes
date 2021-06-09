@@ -33,7 +33,7 @@ group :development, :test do
   gem 'rubocop-performance',  '~> 1.11.3', require: false
   gem 'rubocop-rails',        '~> 2.10.1', require: false
   gem 'rubocop-rspec',        '~> 2.3.0',  require: false
-  gem 'simplecov',            '~> 0.21.2', require: false
+  gem 'simplecov',            '~> 0.21.2'
   gem 'simplecov-lcov',       '~> 0.8.0'
   gem 'undercover',           '~> 0.4.3'
 end
