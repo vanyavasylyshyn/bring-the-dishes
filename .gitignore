@@ -25,3 +25,6 @@
 
 # Ignore tests coverage report
 coverage
+
+# Ignore tests benchmark
+spec/examples.txt
