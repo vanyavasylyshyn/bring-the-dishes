@@ -1,24 +1,105 @@
 version: 2.1
 orbs:
-  ruby: circleci/ruby@0.1.2 
+  ruby: circleci/ruby@0.1.2
+
+workflows:
+  version: 2
+  linters_and_tests:
+    jobs:
+      - linters
+      - tests
+
+defaults:
+  ruby_image: &ruby_image
+    circleci/ruby:2.5.5-stretch-node
+
+  executor: &executor
+    executor: ruby/default
+
+  restore_cache: &restore_cache
+    keys:
+      - gem-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+      - gem-cache-v1-{{ arch }}-{{ .Branch }}
+      - gem-cache-v1
+
+  install_cmake: &install_cmake
+    name: Install cmake
+    command: |
+      sudo apt-get update
+      sudo apt-get install cmake
+
+  install_dependencies: &install_dependencies
+    name: Install dependencies
+    command: |
+      gem i bundler -v $(tail -1 Gemfile.lock | tr -d ' ')
+      bundle config set path 'vendor/bundle' jobs 4 retry 3
+      bundle install
+
+  save_cache: &save_cache
+    key: gem-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+    paths:
+      - vendor/bundle
 
 jobs:
-  build:
+  linters:
     docker:
-      - image: circleci/ruby:2.5.5-stretch-node
-    executor: ruby/default
+      - image: *ruby_image
+    <<: *executor
     steps:
       - checkout
-      - run:
-          name: Install dependencies
-          command: |
-            gem update --system
-            gem install bundler
-            bundle install --path vendor/bundle
+      - restore_cache:
+          <<: *restore_cache
+      - run: 
+          <<: *install_cmake
+      - run: 
+          <<: *install_dependencies
+      - save_cache:
+          <<: *save_cache
       - run:
           name: Running checks
           command: |
-            git config --global user.email "circle@example.com"
-            git config --global user.name "Circle CI"
             bundle exec overcommit -s
-            bundle exec overcommit -r
+            SKIP=AuthorEmail,AuthorName bundle exec overcommit -r
+  tests:
+    docker:
+      - image: *ruby_image
+      - image: circleci/postgres:9.6.2-alpine
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_DB: brind_the_dishes_test
+    <<: *executor
+    steps:
+      - checkout
+      - restore_cache:
+          <<: *restore_cache
+      - run: 
+          <<: *install_cmake
+      - run:
+          <<: *install_dependencies
+      - save_cache:
+          <<: *save_cache
+      - run: sudo apt install -y postgresql-client || true
+      - run:
+          name: Database setup
+          command: |
+            bundle exec rake db:reset
+            bundle exec rake db:structure:load
+      - run:
+          name: Running tests
+          command: |
+            mkdir -p /tmp/coverage
+            bundle exec rspec
+      - run:
+          name: Store coverage report
+          command: mv coverage/* /tmp/coverage/
+      - persist_to_workspace:
+          root: /tmp/coverage
+          paths: .
+      - store_artifacts:
+          path: /tmp/coverage
+          destination: coverage
+      - run:
+          name: Check coverage
+          command: |
+            bundle exec undercover  --lcov /tmp/coverage/lcov/project.lcov \
+                                    --compare origin/master

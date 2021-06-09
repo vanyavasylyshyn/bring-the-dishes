@@ -6,6 +6,13 @@ PreCommit:
       - 'node_modules/**/*'
       - 'vendor/**/*'
 
+  AuthorEmail:
+    enabled: true
+    required: false
+
+  AuthorName:
+    enabled: false
+
   BundleAudit:
     enabled: true
     description: 'Check for vulnerable versions of gems'
@@ -58,3 +65,10 @@ PreCommit:
       - '**/*.ru'
       - '**/Gemfile'
       - '**/Rakefile'
+
+PrePush:
+  RSpec:
+    enabled: true
+    description: 'Run RSpec test suite'
+    required_executable: 'rspec'
+    command: ['bundle', 'exec', 'rspec']
