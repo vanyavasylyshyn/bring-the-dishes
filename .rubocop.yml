@@ -16,6 +16,3 @@ Style/Documentation:
 
 Style/FrozenStringLiteralComment:
   Enabled: false
-
-RSpec/ImplicitExpect:
-  Enabled: false
