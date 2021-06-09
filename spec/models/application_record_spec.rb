@@ -1,6 +1,9 @@
 require 'rails_helper'
 
-# rubocop:disable RSpec/EmptyExampleGroup
 RSpec.describe ApplicationRecord do
+  describe 'inheritance' do
+    subject { described_class }
+
+    it { should be < ActiveRecord::Base }
+  end
 end
-# rubocop:enable RSpec/EmptyExampleGroup

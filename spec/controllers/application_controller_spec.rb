@@ -1,6 +1,9 @@
 require 'rails_helper'
 
-# rubocop:disable RSpec/EmptyExampleGroup
 RSpec.describe ApplicationController do
+  describe 'inheritance' do
+    subject { described_class }
+
+    it { should be < ActionController::API }
+  end
 end
-# rubocop:enable RSpec/EmptyExampleGroup
