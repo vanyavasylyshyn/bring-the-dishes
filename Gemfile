@@ -30,6 +30,9 @@ group :development, :test do
   gem 'reek',                 '~> 6.0.4'
   gem 'rspec-rails',          '~> 5.0.0'
   gem 'rubocop',              '~> 1.15.0', require: false
+  gem 'rubocop-performance',  '~> 1.11.3', require: false
+  gem 'rubocop-rails',        '~> 2.10.1', require: false
+  gem 'rubocop-rspec',        '~> 2.3.0',  require: false
   gem 'simplecov',            '~> 0.21.2'
   gem 'simplecov-lcov',       '~> 0.8.0'
   gem 'undercover',           '~> 0.4.3'
