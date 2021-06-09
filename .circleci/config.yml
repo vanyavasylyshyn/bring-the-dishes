@@ -82,7 +82,7 @@ jobs:
       - run:
           name: Database setup
           command: |
-            bundle exec rake db:create
+            bundle exec rake db:reset
             bundle exec rake db:structure:load
       - run:
           name: Running tests
