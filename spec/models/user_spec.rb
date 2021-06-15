@@ -10,18 +10,12 @@ RSpec.describe User, type: :model do
   end
 
   describe 'attributes' do
-    let(:user) do
-      described_class.new(
-        username: Faker::Internet.username,
-        email: Faker::Internet.email,
-        password: Faker::Internet.password
-      )
-    end
+    subject(:user) { described_class.new }
 
-    it { expect(user).to respond_to :username }
-    it { expect(user).to respond_to :email }
-    it { expect(user).to respond_to :password }
-    it { expect(user).to respond_to :created_at }
-    it { expect(user).to respond_to :updated_at }
+    it { is_expected.to respond_to :username }
+    it { is_expected.to respond_to :email }
+    it { is_expected.to respond_to :password }
+    it { is_expected.to respond_to :created_at }
+    it { is_expected.to respond_to :updated_at }
   end
 end
