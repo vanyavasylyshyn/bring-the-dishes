@@ -4,3 +4,4 @@ detectors:
 
 exclude_paths:
   - 'vendor/**/*.rb'
+  - 'db/migrate/*.rb'

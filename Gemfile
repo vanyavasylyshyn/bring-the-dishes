@@ -9,6 +9,8 @@ gem 'pg',    '~> 1.1'
 
 gem 'puma',  '~> 5.0'
 
+gem 'bcrypt', '~> 3.1', '>= 3.1.12'
+
 group :development do
   gem 'listen', '~> 3.3'
 end
